@@ -19,7 +19,8 @@ sudo apt update -y
 sudo apt install -y brave-browser
 
 # Google Chrome -> https://www.google.com/chrome/
-sudo apt install -y google-chrome-stable
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo apt install ./google-chrome-stable_current_amd64.deb
 
 ## TERMINAL
 # Kitty -> https://sw.kovidgoyal.net/kitty/binary/
@@ -28,9 +29,13 @@ sudo apt install -y kitty
 # ZSH
 sudo apt install -y zsh zsh-autosuggestions zsh-syntax-highlighting
 
+# Change the shell to ZSH
+chsh -s /bin/zsh
+
 # sudo plugin -> https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/sudo/sudo.plugin.zsh
 wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/sudo/sudo.plugin.zsh
-sudo mv sudo.plugin.zsh /usr/share
+sudo mkdir /usr/share/zsh-plugins
+sudo mv sudo.plugin.zsh /usr/share/zsh-plugins
 sudo chown $USER:$GRP /usr/share/zsh-plugins
 
 # Powerlevel10K -> https://github.com/romkatv/powerlevel10k#installation
@@ -59,17 +64,21 @@ fc-cache -v
 
 ## IDE
 # Visual Studio Code -> https://code.visualstudio.com/
-sudo apt install -y code 
-
-# DBeaver CE -> https://dbeaver.io/download/
-sudo apt install -y dbeaver-ce
+sudo apt install software-properties-common apt-transport-https wget -y
+wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+sudo apt install code
 
 ## OTHER
 # Mega Sync -> https://mega.nz/desktop
-sudo apt install -y megasync nautilus-megasync
+wget https://mega.nz/linux/repo/xUbuntu_22.04/amd64/megasync_4.6.8-3.1_amd64.deb
+wget https://mega.nz/linux/repo/xUbuntu_22.04/amd64/nautilus-megasync_3.6.6_amd64.deb
+sudo apt install ./megasync_4.6.8-3.1_amd64.deb
+sudo apt install ./nautilus-megasync_3.6.6_amd64.deb
 
 # Team Viewer -> https://www.teamviewer.com/en/download/linux/
-sudo apt install -y teamviewer
+wget https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
+sudo apt install -y ./teamviewer_amd64.deb
 
 # Python -> https://www.python.org/downloads/
 sudo apt install -y python3 python3-dev python3-pip
@@ -77,14 +86,22 @@ sudo apt install -y python3 python3-dev python3-pip
 # Flameshot -> https://flameshot.org/#download
 sudo apt install -y flameshot
 
+# Notion Snap -> https://github.com/steverydz/notion-snap
+snap install notion-snap
+
+# Grub customizer
+sudo add-apt-repository ppa:danielrichter2007/grub-customizer -y 
+sudo apt-get update -y
+sudo apt-get install -y grub-customizer
+
 ## FLATPAK APPS
 # Setup Flatpak -> https://flatpak.org/setup/Ubuntu
-sudo apt install flatpak
-sudo apt install gnome-software-plugin-flatpak
+sudo apt install -y flatpak
+sudo apt install -y gnome-software-plugin-flatpak
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
-# Install apps -> Calibre, Discord, MarkText, Bottles, Smile, Obsidian, OnlyOffice
-flatpak install flathub com.calibre_ebook.calibre com.discordapp.Discord com.github.marktext.marktext com.usebottles.bottles it.mijorus.smile md.obsidian.Obsidian org.onlyoffice.desktopeditors
+# Install apps -> Calibre, DBeaver CE, Discord, Dropbox, GNOME Extensions Manager, MarkText, Bottles, Smile, Obsidian, OnlyOffice
+flatpak install flathub com.calibre_ebook.calibre io.dbeaver.DBeaverCommunity com.discordapp.Discord com.dropbox.Client com.mattjakeman.ExtensionManager com.github.marktext.marktext com.usebottles.bottles it.mijorus.smile md.obsidian.Obsidian org.onlyoffice.desktopeditors -y
 
 ## Manual Installs
 # Firefox Dev
@@ -93,11 +110,7 @@ sudo apt install -y alacarte
 # MySQL WorkBench
 sudo apt install -y mysql-server
 
-# Notion Snap
-
-# GNOME Extensions
-
 ## FINAL COMMENTS
-echo "[+] Now you only have to install manually: Firefox Developer, MySQL WorkBench, Notion-snap and GNOME Extensions."
+echo "[+] Now you only have to install manually: Firefox Developer and MySQL WorkBench."
 echo "[!] Install VMware WorkStation and Nvim from the other scripts."
-echo "[*] Configure your dotfiles!"
+echo "[*] You should restart the computer and configure your dotfiles!"

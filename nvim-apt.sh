@@ -21,11 +21,7 @@ if ! command -v nvim &> /dev/null
         sudo dpkg -i ripgrep_13.0.0_amd64.deb
 
         # Install NvChad -> https://nvchad.com/quickstart/install#install
-        git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1 && nvim
-
-        # Install for root user
-        sudo su
-        git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1 && nvim
+        git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1 && nvim        
 
         sleep 4
         clear
